@@ -1,5 +1,9 @@
 apply plugin: 'java'
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile files('./lib/cglib-3.1.jar')
     compile files('./lib/commons-lang-2.6.jar')
