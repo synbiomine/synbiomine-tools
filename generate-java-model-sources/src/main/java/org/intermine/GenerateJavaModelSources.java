@@ -4,6 +4,9 @@ import java.io.*;
 import org.intermine.codegen.*;
 import org.intermine.metadata.*;
 
+/**
+ * Generate InterMine Java model classes (and shadows) from an input model XML
+ */
 public class GenerateJavaModelSources
 {
     public static void main(String[] args) throws Exception {
