@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import jargparse
 import os
 import sys
 
@@ -10,7 +11,7 @@ import intermyne.utils as imu
 ############
 ### MAIN ###
 ############
-parser = imu.ArgParser('Get results from executing a given template on a given service')
+parser = jargparse.ArgParser('Get results from executing a given template on a given service')
 parser.add_argument('template')
 parser.add_argument('service')
 args = parser.parse_args()
