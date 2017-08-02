@@ -24,5 +24,5 @@ r = requests.get('%s/session' % args.service)
 rjson = json.loads(r.text)
 print(rjson['token'])
 
-r = requests.post('%s/query/tolist' % args.service)
+r = requests.post('%s/query/tolist' % args.service, headers = { 'Authorization':'Token %s' % rjson['token'] })
 print(r)
