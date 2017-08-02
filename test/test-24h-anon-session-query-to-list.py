@@ -2,6 +2,7 @@
 
 import argparse
 import jargparse
+import json
 import requests
 
 ############
@@ -20,4 +21,8 @@ parser.add_argument('service', help='InterMine service URL.  e.g. http://synbiom
 args = parser.parse_args()
 
 r = requests.get('%s/session' % args.service)
-print(r.text)
+rjson = json.loads(r.text)
+print(rjson['token'])
+
+r = requests.post('%s/query/tolist' % args.service)
+print(r)
