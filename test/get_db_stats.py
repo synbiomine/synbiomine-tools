@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 # Show database statistical information
+# Display object counts and metadata sizes for an InterMine database.
 
 import argparse
 import jargparse
