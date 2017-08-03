@@ -30,3 +30,6 @@ print(rjson['token'])
 rdata = { 'query' : xml, 'name' : 'jc1' }
 r = requests.post('%s/query/tolist' % args.service, headers = { 'Authorization':'Token %s' % rjson['token'] }, params = rdata)
 print(r)
+
+r = requests.get('%s/lists' % args.service, headers = { 'Authorization':'Token %s' % rjson['token']})
+print(r.text)
