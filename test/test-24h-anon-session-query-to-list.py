@@ -20,9 +20,13 @@ parser.add_argument('query', help='query XML')
 parser.add_argument('service', help='InterMine service URL.  e.g. http://synbiomine.org/synbiomine')
 args = parser.parse_args()
 
+with open(args.query) as f:
+  xml = f.readlines()
+
 r = requests.get('%s/session' % args.service)
 rjson = json.loads(r.text)
 print(rjson['token'])
 
-r = requests.post('%s/query/tolist' % args.service, headers = { 'Authorization':'Token %s' % rjson['token'] })
+rdata = { 'query' : xml, 'name' : 'jc1' }
+r = requests.post('%s/query/tolist' % args.service, headers = { 'Authorization':'Token %s' % rjson['token'] }, params = rdata)
 print(r)
