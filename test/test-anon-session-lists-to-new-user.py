@@ -39,7 +39,6 @@ r = requests.post('%s/query/tolist' % args.service, headers = { 'Authorization':
 
 r = requests.get('%s/lists' % args.service, headers = { 'Authorization':'Token %s' % anonSessionToken})
 rListsJson = json.loads(r.text)
-
 print('Got %d lists' % len(rListsJson['lists']))
 for listJson in rListsJson['lists']:
     if listJson['authorized'] == True:
@@ -53,10 +52,6 @@ createdUserSessionToken = rjson['user']['temporaryToken']
 
 r = requests.get('%s/lists' % args.service, headers = { 'Authorization':'Token %s' % createdUserSessionToken})
 rListsJson = json.loads(r.text)
-
-print('Got %d lists' % len(rListsJson['lists']))
 for listJson in rListsJson['lists']:
     if listJson['authorized'] == True:
         print('Got private list [%s], id [%d]' % (listJson['name'], listJson['id']))
-
-# Todo: check if now permanent list has the same id as the temporary one
