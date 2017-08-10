@@ -17,6 +17,7 @@ parser = jargparse.ArgParser(
 </query>''')
 
 parser.add_argument('query', help='query XML')
+parser.add_argument('listname')
 parser.add_argument('service', help='InterMine service URL.  e.g. http://synbiomine.org/synbiomine')
 args = parser.parse_args()
 
@@ -27,7 +28,7 @@ r = requests.get('%s/session' % args.service)
 rjson = json.loads(r.text)
 print(rjson['token'])
 
-rdata = { 'query' : xml, 'name' : 'jc1' }
+rdata = { 'query' : xml, 'name' : args.listname }
 r = requests.post('%s/query/tolist' % args.service, headers = { 'Authorization':'Token %s' % rjson['token'] }, params = rdata)
 print(r)
 
