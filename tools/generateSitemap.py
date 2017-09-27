@@ -3,15 +3,13 @@
 import jargparse
 from intermine.webservice import Service
 
-############
-### MAIN ###
-############
+# MAIN
 parser = jargparse.ArgParser('Generate a sitemap for an InterMine installation.')
 parser.add_argument(
-    'mineServiceUrl', help = "InterMine webservices URL.  For example, http://synbiomine.org/synbiomine/service")
+    'mineUrl', help="InterMine URL.  For example, http://www.synbiomine.org/synbiomine")
 args = parser.parse_args()
 
-service = Service(args.mineServiceUrl)
+service = Service(args.mineUrl + '/service')
 
 # Get a new query on the class (table) you will be querying:
 query = service.new_query("Gene")
@@ -48,9 +46,12 @@ f.write(prefix)
 
 for row in query.rows():
     f.write(
-        "<url><loc>http://www.humanmine.org/human/portal.do?class=Gene&amp;externalids="
-        + row["primaryIdentifier"] + "</loc></url>\n")
+        '<url><loc>'
+        + args.mineUrl + '/portal.do?class=Gene&amp;externalids=' + row["primaryIdentifier"]
+        + "</loc></url>\n")
+
     rowCount = rowCount + 1
+
     if rowCount >= 50000:
         f.write(postfix)
         f.close()
