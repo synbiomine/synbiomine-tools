@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # This is an automatically generated script to run your query
 # to use it you will require the intermine python client.
