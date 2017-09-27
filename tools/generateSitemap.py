@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
+import datetime
 import jargparse
 from intermine.webservice import Service
+from lxml import etree
 
 # MAIN
 parser = jargparse.ArgParser('Generate a sitemap for an InterMine installation.')
@@ -62,3 +64,22 @@ for row in query.rows():
 
 f.write(postfix)
 f.close() 
+
+dateString = datetime.datetime.now().strftime('%Y-%m-%d')
+
+# Write main sitemap file
+nsMap = {None: 'http://www.sitemaps.org/schemas/sitemap/0.9', 'xsi': 'http://www.w3.org/1999/xlink'}
+rootElem = etree.Element('urlset', nsmap=nsMap)
+rootElem.attrib['{http://www.w3.org/1999/xlink}schemaLocation'] \
+    = 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
+
+for i in range(0, sitemapCount + 1):
+    sitemapElem = etree.SubElement(rootElem, 'sitemap')
+    locElem = etree.SubElement(sitemapElem, 'loc')
+    locElem.text = '%s/sitemap%d.xml' % (args.mineUrl, i)
+    lastmodElem = etree.SubElement(sitemapElem, 'lastmod')
+    lastmodElem.text = dateString
+
+print(etree.tostring(rootElem, pretty_print=True))
+
+etree.ElementTree(rootElem).write('sitemap.xml', pretty_print=True, xml_declaration=True, encoding='utf-8')
