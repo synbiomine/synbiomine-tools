@@ -1,7 +1,17 @@
 #!/usr/bin/env python3
 
+import jargparse
 from intermine.webservice import Service
-service = Service("http://human.intermine.org/human/service")
+
+############
+### MAIN ###
+############
+parser = jargparse.ArgParser('Generate a sitemap for an InterMine installation.')
+parser.add_argument(
+    'mineServiceUrl', help = "InterMine webservices URL.  For example, http://synbiomine.org/synbiomine/service")
+args = parser.parse_args()
+
+service = Service(args.mineServiceUrl)
 
 # Get a new query on the class (table) you will be querying:
 query = service.new_query("Gene")
