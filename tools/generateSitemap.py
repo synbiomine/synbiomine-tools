@@ -1,15 +1,5 @@
 #!/usr/bin/env python3
 
-# This is an automatically generated script to run your query
-# to use it you will require the intermine python client.
-# To install the client, run the following command from a terminal:
-#
-#     sudo easy_install intermine
-#
-# For further documentation you can visit:
-#     http://intermine.readthedocs.org/en/latest/web-services/
-
-# The following two lines will be needed in every python script:
 from intermine.webservice import Service
 service = Service("http://human.intermine.org/human/service")
 
