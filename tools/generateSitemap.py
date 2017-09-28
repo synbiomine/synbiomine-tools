@@ -17,14 +17,16 @@ service = Service(args.mineUrl + '/service')
 query = service.new_query("Gene")
 
 # The view specifies the output columns
-query.add_view("primaryIdentifier")
+query.add_view("id")
+# query.add_view("primaryIdentifier")
 
 # Uncomment and edit the line below (the default) to select a custom sort order:
 # query.add_sort_order("Pathway.primaryIdentifier", "ASC")
 
 # You can edit the constraint values below
 # query.add_constraint("primaryIdentifier", "IS NOT NULL", code = "A")
-query.add_constraint("primaryIdentifier", "IS NOT NULL", code="A")
+query.add_constraint("id", "IS NOT NULL", code="A")
+# query.add_constraint("primaryIdentifier", "IS NOT NULL", code="A")
 # query.add_constraint("organism.shortName", "=", "H. sapiens", code = "B")
 
 # Uncomment and edit the code below to specify your own custom logic:
@@ -49,7 +51,8 @@ f.write(prefix)
 for row in query.rows():
     f.write(
         '<url><loc>'
-        + args.mineUrl + '/portal.do?class=Gene&amp;externalids=' + row["primaryIdentifier"]
+        # + args.mineUrl + '/portal.do?class=Gene&amp;externalids=' + row["primaryIdentifier"]
+        + args.mineUrl + '/report.do?id=' + str(row["id"])
         + "</loc></url>\n")
 
     rowCount = rowCount + 1
