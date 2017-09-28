@@ -67,7 +67,19 @@ f.close()
 
 dateString = datetime.datetime.now().strftime('%Y-%m-%d')
 
-# Write main sitemap file
+# Write main sitemap index file
+nsMap = {None: 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+rootElem = etree.Element('sitemapindex', nsmap=nsMap)
+
+for i in range(0, sitemapCount + 1):
+    sitemapElem = etree.SubElement(rootElem, 'sitemap')
+    locElem = etree.SubElement(sitemapElem, 'loc')
+    locElem.text = '%s/sitemap%d.xml' % (args.mineUrl, i)
+    lastmodElem = etree.SubElement(sitemapElem, 'lastmod')
+    lastmodElem.text = dateString
+
+# Sitemap writing code which we'll use to replace hand-printed at some point
+"""
 nsMap = {None: 'http://www.sitemaps.org/schemas/sitemap/0.9', 'xsi': 'http://www.w3.org/1999/xlink'}
 rootElem = etree.Element('urlset', nsmap=nsMap)
 rootElem.attrib['{http://www.w3.org/1999/xlink}schemaLocation'] \
@@ -79,7 +91,8 @@ for i in range(0, sitemapCount + 1):
     locElem.text = '%s/sitemap%d.xml' % (args.mineUrl, i)
     lastmodElem = etree.SubElement(sitemapElem, 'lastmod')
     lastmodElem.text = dateString
+"""
 
-print(etree.tostring(rootElem, pretty_print=True))
+# print(etree.tostring(rootElem, pretty_print=True))
 
 etree.ElementTree(rootElem).write('sitemap.xml', pretty_print=True, xml_declaration=True, encoding='utf-8')
